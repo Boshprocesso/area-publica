@@ -1,0 +1,16 @@
+.body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+.pagina{
+    padding-top: 10px;
+    margin: 5px;
+}
+
+.tabela{
+    min-width: 350px;
+    width: 100%;
+    margin-bottom: 50px;
+}
