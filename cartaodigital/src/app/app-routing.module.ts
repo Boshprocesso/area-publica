@@ -4,6 +4,8 @@ import { PageBeneficiosTerceiroComponent } from './page-beneficios-terceiro/page
 import { PageBeneficiosComponent } from './page-beneficios/page-beneficios.component';
 import { PageLoginComponent } from './page-login/page-login.component';
 
+//const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
+
 const routes: Routes = [
   {path: '', component: PageLoginComponent},
   {path: 'login', component: PageLoginComponent },

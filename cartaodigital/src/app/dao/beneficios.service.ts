@@ -43,10 +43,4 @@ export class BeneficiosService {
 
     return this.http.get<BeneficiarioJSON>(linkJSON, {headers});
   }
-
-  postLogin(params: any) {
-    var linkJSON = linkBaseAPI + 'loginPost.json';
-
-    return this.http.post(linkJSON, params);
-  }
 }

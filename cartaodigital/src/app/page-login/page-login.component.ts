@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { first } from 'rxjs/operators';
+import { LoginService } from '../dao/login.service';
 
 @Component({
   selector: 'app-page-login',
@@ -8,7 +10,9 @@ import {Router} from '@angular/router';
 })
 export class PageLoginComponent implements OnInit {
   showSpinner = false;
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private loginService: LoginService
+              ) {    }
   
   matricula?: string;
   nascimento?: string;
@@ -22,11 +26,19 @@ export class PageLoginComponent implements OnInit {
         this.router.navigate(["user"]);
     }else {
         this.showSpinner = true;
-      
-      //alert("Credenciais Invalidas, implementar sistema de login");
-      //this.showSpinner = false;
-      //this.router.navigate([""]);
     }
+
+     
+
+    this.initLogin();
+  }
+
+  initLogin(){
+    this.loginService.postLogin({})
+      .pipe(first())
+      .subscribe(data=>{    
+          console.log(data);
+        });
   }
 
 }
