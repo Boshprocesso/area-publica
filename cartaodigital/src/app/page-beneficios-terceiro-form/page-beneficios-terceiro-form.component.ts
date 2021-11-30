@@ -82,11 +82,21 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
 
   postTerceiro(){
     if(this.formEnvio.status=="VALID"){
-      console.warn('Cadastrando o Terceiro! Request do POST', this.formEnvio.value);
+      const headerMask = { 
+        'cod': '',
+        'nascimento': '',
+        'opcaoSelecionada': '',
+        'identificacaoTerceiro': '',
+        'nomeTerceiro': '' 
+      };
+      headerMask.cod = this.loginService.chaveLogin().headers.cod;
+      headerMask.nascimento = this.loginService.chaveLogin().headers.nascimento;
 
-      const headerMask = { 'identificacaoTerceiro': '', 'nomeTerceiro': '' };
+      headerMask.opcaoSelecionada = this.formEnvio.value.opcao;
       headerMask.identificacaoTerceiro = this.formEnvio.value.edv;
       headerMask.nomeTerceiro = this.formEnvio.value.nome;
+      console.warn("O que será enviado para o servidor?");
+      console.warn(headerMask);
 
       this.beneficiosService.postBeneficiarios(headerMask)
       .pipe(first())
@@ -94,10 +104,7 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
           next: data => {
             try{
               if(data){
-                console.warn("Removendo o seguinte terceiro...")
-                console.warn(this,this.formEnvio.value);
                 console.warn("Terceiro cadastrado com sucesso!");
-                
               }else{
                 console.warn("Falha no cadastro...");
                 this.showSpinner = false;
@@ -123,20 +130,15 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
   }
 
   deleteTerceiro(){
-      console.warn('Deletando o Terceiro! Request do DELETE', this.formEnvio.value);
       var idBeneficiario = this.formEnvio.controls['edv'].value;
       
-      this.beneficiosService.deleteBeneficiarios(idBeneficiario)
+      this.beneficiosService.deleteBeneficiarios("1")
       .pipe(first())
       .subscribe({
           next: data => {
             try{
               if(data){
-                console.warn("Removendo o seguinte terceiro...")
-                console.warn(this.formEnvio.controls['edv'].value);
-                
-                console.warn("Terceiro cadastrado com sucesso!");
-                
+                console.warn("Removido com Sucesso!")                
               }else{
                 console.warn("Falha no cadastro...");
                 this.showSpinner = false;

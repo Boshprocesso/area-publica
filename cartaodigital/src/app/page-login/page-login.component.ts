@@ -58,7 +58,9 @@ export class PageLoginComponent implements OnInit {
               console.warn("Falha requisição de Login!");
               this.showSpinner = false;
             }
-            
+
+            console.log("Recebido o login do servidor:");
+            console.warn(data);
             this.showSpinner = false;
           },
           error: error => {

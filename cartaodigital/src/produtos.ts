@@ -1,20 +1,5 @@
 import { BeneficioJSON } from "./app/dao/tiposJSON";
 
-export const beneficiosUserXXXXX: BeneficioJSON = {
-    "beneficios":
-        {
-            "codFuncionario": 0,
-            "nomeFuncionario": " ",
-            "beneficios": [
-
-            ]
-        }
-    ,
-    "terceiros": [
-
-    ] 
-};
-
 export const beneficiosUser2: any = {};
 //export const beneficiosUser = Array<BeneficioJSON>();
 

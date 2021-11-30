@@ -34,15 +34,25 @@ export class BeneficiosService {
 
   getTodosBeneficios(){
     var linkJSON = linkBaseAPI + 'beneficio';
+    var linkJSONfinal = linkJSON + "/" + this.loginService.chaveLogin().headers.cod;
 
-    return this.http.get<BeneficioJSON>(linkJSON, this.loginService.chaveLogin());
+    console.log("Será enviado o seguinte link para o servidor para solicitar os beneficios");
+    console.warn(linkJSONfinal);
+
+    return this.http.get<BeneficioJSON>(linkJSON);
   }
+
+
 
   //Função para obter os beneficiarios Cadastrados
   getBeneficiarios(){
     var linkJSON = linkBaseAPI + 'beneficiario';
+    var linkJSONfinal = linkJSON + "/" + this.loginService.chaveLogin().headers.cod;
+    
+    console.log("Será enviado o seguinte link para o servidor para solicitar o terceiro:");
+    console.warn(linkJSONfinal);
 
-    return this.http.get<BeneficiarioJSON[]>(linkJSON, this.loginService.chaveLogin());
+    return this.http.get<BeneficiarioJSON[]>(linkJSON);
   }
 
   //Função para obter os beneficiarios Cadastrados
@@ -55,6 +65,10 @@ export class BeneficiosService {
   //Função para obter os beneficiarios Cadastrados
   deleteBeneficiarios(id: string){
     var linkJSON = linkBaseAPI + 'beneficiario/' + id;
+    var linkJSONfinal = linkJSON + "/delete/" + this.loginService.chaveLogin().headers.cod + "/" + id;
+
+    console.log("Será enviado o seguinte link para o servidor para excluir o terceiro:");
+    console.warn(linkJSONfinal);
 
     return this.http.delete(linkJSON);
   }
