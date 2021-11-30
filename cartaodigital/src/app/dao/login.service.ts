@@ -27,9 +27,9 @@ export class LoginService {
   }
 
   chaveLogin(){
-    const headers = { 'cod': '1', 'nascimento': '1' };
-    //headers.cod = this.loginLocal.login.codFuncionario;
-    //headers.cod = this.loginLocal.login.nascimento;
+    const headers = { 'cod': '', 'nascimento': '' };
+    headers.cod = this.loginLocal.login.codFuncionario;
+    headers.nascimento = this.loginLocal.login.nascimento;
 
     return {headers};
   }

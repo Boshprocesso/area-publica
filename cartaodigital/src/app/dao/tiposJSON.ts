@@ -6,7 +6,7 @@ export type BeneficioEstrutura = {
 }
 
 export type BeneficioUsuario = {
-    codFuncionario: number;
+    codFuncionario: string;
     nomeFuncionario: string;
     beneficios: Array<BeneficioEstrutura>;
 }
@@ -20,12 +20,10 @@ export type BeneficioJSON = {
 
 
 
-
 export type BeneficiarioJSON = {
     identificacaoTerceiro: string;
     nomeTerceiro: string;
 }
-
 
 
 
