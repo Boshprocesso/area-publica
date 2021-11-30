@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { LoginService } from '../dao/login.service';
 
 @Component({
   selector: 'app-tela-sidenav',
@@ -9,7 +10,9 @@ export class TelaSidenavComponent implements OnInit {
   @Output() toggleSlider = new EventEmitter();  //Aqui para quando precisa conectar as duas interfaces do projeto
   @Output() pageRequest = new EventEmitter();  //Aqui para quando precisa conectar as duas interfaces do projeto
 
-  constructor() { }
+  constructor(
+              private loginService: LoginService
+             ) { }
 
   ngOnInit(): void {
   }
@@ -17,4 +20,9 @@ export class TelaSidenavComponent implements OnInit {
   toggleSideNav() {
 		this.toggleSlider.emit();
 	}
+
+  sairSistema(){
+		this.toggleSlider.emit();
+    this.loginService.cancelaLogin();
+  }
 }

@@ -5,7 +5,7 @@
                 <mat-card-title>Efetuar Login</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <form class="example-form">
+                <form class="example-form" [formGroup]="formEnvio" (ngSubmit)="login()">
                 <table class="example-full-width" cellspacing="0">
                     <tr>
                     <td>
@@ -15,7 +15,7 @@
                             </mat-grid-tile>
                             <mat-grid-tile [colspan]="7">
                                 <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="CPF ou EDV"  name="matricula" required>
+                                    <input matInput placeholder="CPF ou EDV"  name="edv" formControlName="edv" required>
                                 </mat-form-field>
                             </mat-grid-tile>
                         </mat-grid-list>
@@ -29,20 +29,20 @@
                             </mat-grid-tile>
                             <mat-grid-tile [colspan]="7">
                                 <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Data Nascimento" type="date" name="nascimento" required>
+                                    <input matInput placeholder="Data Nascimento" type="date" formControlName="nascimento"required>
                                 </mat-form-field>
                             </mat-grid-tile>
                         </mat-grid-list>
                         
                     </td>
                 </tr></table>
+                <div class="login-spinner">
+                    <button mat-raised-button class="example-full-width" color="primary"><mat-icon>input</mat-icon> Confirmar</button> <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+                </div>
                 </form>
             </mat-card-content>
             <mat-card-actions>
-                <div class="login-spinner">
-                    <button mat-raised-button class="example-full-width" (click)="login()" color="primary"><mat-icon>input</mat-icon> Confirmar</button> <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
-                </div>
-                    
+
             </mat-card-actions>
         </mat-card>
     </div>
