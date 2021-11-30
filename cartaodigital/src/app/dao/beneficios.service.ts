@@ -53,7 +53,7 @@ export class BeneficiosService {
   }
 
   //Função para obter os beneficiarios Cadastrados
-  deleteBeneficiarios(id: number){
+  deleteBeneficiarios(id: string){
     var linkJSON = linkBaseAPI + 'beneficiario/' + id;
 
     return this.http.delete(linkJSON);

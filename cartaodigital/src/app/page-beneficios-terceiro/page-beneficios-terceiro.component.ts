@@ -35,14 +35,19 @@ export class PageBeneficiosTerceiroComponent implements OnInit {
     this.beneficiosService.getBeneficiarios()
         .pipe(first())
         .subscribe(data=>{    
+          console.log("Imprimindo os beneficiarios");
           try{
-            console.warn(data);
-            if(data[0].nomeTerceiro){
+            //console.log("Recebido os seguintes beneficiarios");
+            //console.warn(data);
+            if(data[0]){
+              
               this.getBeneficiario = data[0];
+              //console.log(this.getBeneficiario);
             }
           }catch{
               
           }
+          
           });
   }
 }

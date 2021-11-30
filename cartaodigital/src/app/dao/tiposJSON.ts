@@ -22,7 +22,7 @@ export type BeneficioJSON = {
 
 
 export type BeneficiarioJSON = {
-    identificaoTerceiro: number;
+    identificacaoTerceiro: string;
     nomeTerceiro: string;
 }
 
