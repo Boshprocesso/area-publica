@@ -8,6 +8,7 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { BeneficiosService } from '../dao/beneficios.service';
 import { BeneficiarioJSON } from '../dao/tiposJSON';
 import { first } from 'rxjs/operators';
+import { LoginService } from '../dao/login.service';
 
 @Component({
   selector: 'app-page-beneficios-terceiro',
@@ -16,12 +17,11 @@ import { first } from 'rxjs/operators';
 })
 export class PageBeneficiosTerceiroComponent implements OnInit {
 
-  getBeneficiario2 = this.beneficiosService.getBeneficiarios();
 
-  getBeneficiario3 = Array<BeneficiarioJSON>();
   getBeneficiario !: BeneficiarioJSON;
 
   constructor(private router: Router,
+              private loginService: LoginService,
               private beneficiosService: BeneficiosService
               ) { }
   
@@ -36,8 +36,9 @@ export class PageBeneficiosTerceiroComponent implements OnInit {
         .pipe(first())
         .subscribe(data=>{    
           try{
-            if(data.nomeTerceiro!=""){
-              this.getBeneficiario = data;
+            console.warn(data);
+            if(data[0].nomeTerceiro){
+              this.getBeneficiario = data[0];
             }
           }catch{
               

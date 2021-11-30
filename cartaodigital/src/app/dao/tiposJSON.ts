@@ -32,5 +32,11 @@ export type BeneficiarioJSON = {
 
 
 export type LoginJSON = {
-    
+    login: {
+                codFuncionario: string,
+                nomeFuncionario: string,
+                nascimento: string,
+                administrativo: boolean,
+                entregaproduto: boolean
+            }
 }

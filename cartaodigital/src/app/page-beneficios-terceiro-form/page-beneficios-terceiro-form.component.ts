@@ -4,6 +4,9 @@ import { FormBuilder } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 
 import { BeneficiarioJSON } from '../dao/tiposJSON';
+import { LoginService } from '../dao/login.service';
+import { first } from 'rxjs/operators';
+import { BeneficiosService } from '../dao/beneficios.service';
 
 interface OpcoesForm {
   value: string;
@@ -35,6 +38,8 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
 
 
   constructor(private router: Router,
+              private loginService: LoginService,
+              private beneficiosService: BeneficiosService,
               private formBuilder: FormBuilder
               ) { }
 
@@ -45,7 +50,6 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
       
       this.formEnvio.controls['opcao'].disable();
       this.formEnvio.controls['nome'].disable();
-      //this.formEnvio.controls['edv'].disable();
     }
   }
 
@@ -78,8 +82,37 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
   postTerceiro(){
     if(this.formEnvio.status=="VALID"){
       console.warn('Cadastrando o Terceiro! Request do POST', this.formEnvio.value);
+
+      this.beneficiosService.postBeneficiarios(this.formEnvio.value)
+      .pipe(first())
+      .subscribe({
+          next: data => {
+            try{
+              if(data){
+                console.warn("Removendo o seguinte terceiro...")
+                console.warn(this,this.formEnvio.value);
+                console.warn("Terceiro cadastrado com sucesso!");
+                
+              }else{
+                console.warn("Falha no cadastro...");
+                this.showSpinner = false;
+              }
+            }catch{
+              console.warn("Falha de acesso ao servidor...");
+              this.showSpinner = false;
+            }
+            
+            this.showSpinner = false;
+          },
+          error: error => {
+              console.log(error.message);
+              console.error('Falha no cadastro...', error);
+            }
+      });
+
+
     }else{
-      console.warn('Verifique os valores digitados, estão errados!');
+      
     }
     //this.formEnvio.reset();
   }
@@ -87,6 +120,34 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
   deleteTerceiro(){
     if(this.formEnvio.status=="VALID"){
       console.warn('Deletando o Terceiro! Request do DELETE', this.formEnvio.value);
+      
+      this.beneficiosService.deleteBeneficiarios(this.formEnvio.controls['edv'].value)
+      .pipe(first())
+      .subscribe({
+          next: data => {
+            try{
+              if(data){
+                console.warn("Removendo o seguinte terceiro...")
+                console.warn(this.formEnvio.controls['edv'].value);
+                
+                console.warn("Terceiro cadastrado com sucesso!");
+                
+              }else{
+                console.warn("Falha no cadastro...");
+                this.showSpinner = false;
+              }
+            }catch{
+              console.warn("Falha de acesso ao servidor...");
+              this.showSpinner = false;
+            }
+            
+            this.showSpinner = false;
+          },
+          error: error => {
+              console.log(error.message);
+              console.error('Falha no cadastro...', error);
+            }
+      });
     }else{
       console.warn('Verifique os valores digitados, estão errados!');
     }
