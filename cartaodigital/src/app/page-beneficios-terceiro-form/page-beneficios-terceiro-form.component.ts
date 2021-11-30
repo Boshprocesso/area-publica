@@ -46,10 +46,11 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
   ngOnInit(): void {
     if(this.objeto){
       this.formEnvio.controls['nome'].setValue(this.objeto.nomeTerceiro);
-      this.formEnvio.controls['edv'].setValue(this.objeto.identificaoTerceiro);
+      this.formEnvio.controls['edv'].setValue(this.objeto.identificacaoTerceiro);
       
       this.formEnvio.controls['opcao'].disable();
       this.formEnvio.controls['nome'].disable();
+      this.formEnvio.controls['edv'].disable();
     }
   }
 
@@ -83,7 +84,11 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
     if(this.formEnvio.status=="VALID"){
       console.warn('Cadastrando o Terceiro! Request do POST', this.formEnvio.value);
 
-      this.beneficiosService.postBeneficiarios(this.formEnvio.value)
+      const headerMask = { 'identificacaoTerceiro': '', 'nomeTerceiro': '' };
+      headerMask.identificacaoTerceiro = this.formEnvio.value.edv;
+      headerMask.nomeTerceiro = this.formEnvio.value.nome;
+
+      this.beneficiosService.postBeneficiarios(headerMask)
       .pipe(first())
       .subscribe({
           next: data => {
@@ -118,10 +123,10 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
   }
 
   deleteTerceiro(){
-    if(this.formEnvio.status=="VALID"){
       console.warn('Deletando o Terceiro! Request do DELETE', this.formEnvio.value);
+      var idBeneficiario = this.formEnvio.controls['edv'].value;
       
-      this.beneficiosService.deleteBeneficiarios(this.formEnvio.controls['edv'].value)
+      this.beneficiosService.deleteBeneficiarios(idBeneficiario)
       .pipe(first())
       .subscribe({
           next: data => {
@@ -148,8 +153,5 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
               console.error('Falha no cadastro...', error);
             }
       });
-    }else{
-      console.warn('Verifique os valores digitados, estão errados!');
-    }
   }
 }
