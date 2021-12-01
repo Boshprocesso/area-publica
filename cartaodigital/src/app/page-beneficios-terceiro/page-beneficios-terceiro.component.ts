@@ -9,6 +9,7 @@ import { BeneficiosService } from '../dao/beneficios.service';
 import { BeneficiarioJSON } from '../dao/tiposJSON';
 import { first } from 'rxjs/operators';
 import { LoginService } from '../dao/login.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-page-beneficios-terceiro',
@@ -22,12 +23,16 @@ export class PageBeneficiosTerceiroComponent implements OnInit {
 
   constructor(private router: Router,
               private loginService: LoginService,
-              private beneficiosService: BeneficiosService
-              ) { }
+              private beneficiosService: BeneficiosService,
+              viewportScroller: ViewportScroller
+             ) {  
+               viewportScroller.scrollToPosition([0,0]);
+               }
   
   ngOnInit(): void {
+    this.loginService.validaLogin(this.router.url);
     this.carregaBeneficiario();
-    }
+    } 
     
   //Função que trata o JSON recebido pelo GET
   carregaBeneficiario(){
