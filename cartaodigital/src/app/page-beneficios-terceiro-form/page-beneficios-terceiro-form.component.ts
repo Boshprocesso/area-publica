@@ -67,8 +67,6 @@ export class PageBeneficiosTerceiroFormComponent implements OnInit {
     }
   }
 
-
-  
   //Função que irá ser invocada dentro do formulário.
   onSubmit(): void{
     //this.items = this.carrinhoService.limparCarrinho();

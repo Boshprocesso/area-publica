@@ -7,6 +7,9 @@ import { Produto, carrinho, produtos  } from 'src/produtos'; //Importa a bibliot
 import { BeneficiosService } from '../dao/beneficios.service';
 import { BeneficioUsuario } from '../dao/tiposJSON';
 import { first } from 'rxjs/operators';
+import { LoginService } from '../dao/login.service';
+import { Router } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-page-beneficios',
@@ -19,10 +22,16 @@ export class PageBeneficiosComponent implements OnInit {
 
 
   constructor(
-              private beneficiosService: BeneficiosService
-             ) {    }
+              private router: Router,
+              private loginService: LoginService,
+              private beneficiosService: BeneficiosService,
+              viewportScroller: ViewportScroller
+             ) {  
+               viewportScroller.scrollToPosition([0,0]);
+               }
 
   ngOnInit(): void {
+            this.loginService.validaLogin(this.router.url);
             this.carregaBeneficios();
   }
 

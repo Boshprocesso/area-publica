@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 
 import { first } from 'rxjs/operators';
 import { LoginService } from '../dao/login.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-page-login',
@@ -14,8 +15,11 @@ export class PageLoginComponent implements OnInit {
   showSpinner = false;
   constructor(private router: Router,
               private loginService: LoginService,
-              private formBuilder: FormBuilder
-              ) {    }
+              private formBuilder: FormBuilder,
+              viewportScroller: ViewportScroller
+             ) {  
+               viewportScroller.scrollToPosition([0,0]);
+               }
   
   matricula?: string;
   nascimento?: string;
@@ -26,7 +30,7 @@ export class PageLoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-      this.loginService.validaLogin();
+      this.loginService.validaLogin(this.router.url);
   }
 
 

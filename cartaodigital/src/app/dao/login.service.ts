@@ -34,15 +34,21 @@ export class LoginService {
     return {headers};
   }
 
-  validaLogin(){
+  validaLogin(rota: string){
     if(this.loginLocal){
-      this.router.navigate(["beneficios"]);
+      if((rota=="/")||(rota=="/login")){
+        this.router.navigate(["beneficios"]);
+      }
     }else{
-      this.router.navigate([""]);
+      if(!((rota=="/")||(rota=="login"))){
+        this.router.navigate([""]);
+      }
+      console.log("Vim da rota: " + rota);
     }
   }
 
   cancelaLogin(){
     
   }
+
 }
